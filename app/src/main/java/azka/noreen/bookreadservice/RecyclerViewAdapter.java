@@ -13,11 +13,11 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     ArrayList<Student> studentArrayList=new ArrayList<Student>();
-//    MyInterface myInterface;
-//
-//    public void setMyInterface(MyInterface myInterface){
-//        this.myInterface=myInterface;
-//    }
+    MyInterface myInterface;
+
+    public void setMyInterface(MyInterface myInterface){
+        this.myInterface=myInterface;
+    }
 
 
     @NonNull
@@ -40,7 +40,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             @Override
             public void onClick(View view) {
 //                Toast.makeText(view.getContext(), st.getName(), Toast.LENGTH_SHORT).show();
-//                myInterface.onStudentClick(st);
+                myInterface.onStudentClick(st);
             }
         });
     }
