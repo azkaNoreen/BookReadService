@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookReadService">
         <activity
+            android:name=".debugging.Second"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivity"
+            android:exported="false" />
+        <activity
             android:name=".Details"
             android:exported="false" />
 
@@ -21,7 +27,7 @@
             android:exported="true" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".debugging.First"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

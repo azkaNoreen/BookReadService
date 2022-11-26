@@ -1,5 +1,6 @@
 package azka.noreen.bookreadservice;
 
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -97,6 +98,8 @@ Boolean started=false;
                 .setAutoCancel(true)
                 .setContent(customNotification);
 
+
+        builder.getNotification().flags |= Notification.FLAG_AUTO_CANCEL;
 
         NotificationManagerCompat notificationManagerCompat=NotificationManagerCompat.from(MyService.this);
         notificationManagerCompat.notify(notificaitionid,builder.build());
