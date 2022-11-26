@@ -19,10 +19,10 @@ TextView bookName,bookAuthor,bookDescription,bookID;
         bookID=findViewById(R.id.bid);
 
         Book book = (Book) getIntent().getSerializableExtra("bookDetails");
-        bookName.setText(""+book.getBookId());
-        bookID.setText(book.getName());
-        bookAuthor.setText(book.getAuthor());
-        bookDescription.setText(book.getDescription());
+        bookName.setText("Book ID: "+book.getBookId());
+        bookID.setText("Book Name: "+book.getName());
+        bookAuthor.setText("Book Author: "+book.getAuthor());
+        bookDescription.setText("Book Description: "+book.getDescription());
 
 
     }
