@@ -1,5 +1,6 @@
 package azka.noreen.bookreadservice;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,13 +14,6 @@ import java.util.ArrayList;
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
     ArrayList<Book> bookArrayList =new ArrayList<Book>();
-    MyInterface myInterface;
-
-    public void setMyInterface(MyInterface myInterface){
-        this.myInterface=myInterface;
-    }
-
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,8 +35,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         studentViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Toast.makeText(view.getContext(), st.getName(), Toast.LENGTH_SHORT).show();
-                myInterface.onStudentClick(st);
+                Intent intent = new Intent(studentViewHolder.itemView.getContext(), MyService.class);
+                intent.setAction("updateNotification");
+                intent.putExtra("book", st);
+                MyService.launchSecondService(studentViewHolder.itemView.getContext(), intent);
             }
         });
     }

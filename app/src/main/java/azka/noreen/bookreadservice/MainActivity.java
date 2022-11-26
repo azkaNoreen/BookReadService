@@ -39,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent=new Intent(MainActivity.this, MyService.class);
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                    MyService.launchSecondService(MainActivity.this);
+                    Intent intern=new Intent(MainActivity.this,MyService.class);
+                    intern.setAction("Launch_Activity");
+                    MyService.launchSecondService(MainActivity.this, intern);
 //                    Intent intent2 = new Intent(MainActivity.this, MyService.class);
 //                    intent2.setAction(ACTION_Launch_Activity);
 //                   startService(intent2);
@@ -77,15 +79,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void InitRecycleView(){
         RecyclerViewAdapter rva=new RecyclerViewAdapter();
-        rva.setMyInterface(new MyInterface() {
-            @Override
-            public void onStudentClick( Book book) {
-                Intent intent = new Intent(getApplication(), MyService.class);
-                intent.setAction("updateNotification");
-                intent.putExtra("book", book);
-                getApplication().startService(intent);
-            }
-        });
         recycleView.setAdapter(rva);
         recycleView.setLayoutManager(new LinearLayoutManager(this));
 
