@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    ArrayList<Student> studentArrayList=new ArrayList<Student>();
+    ArrayList<Book> bookArrayList =new ArrayList<Book>();
     MyInterface myInterface;
 
     public void setMyInterface(MyInterface myInterface){
@@ -31,11 +31,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        Student st=studentArrayList.get(position);
+        Book st= bookArrayList.get(position);
         StudentViewHolder studentViewHolder= (StudentViewHolder) holder;
 
         studentViewHolder.studentTextName.setText(st.getName());
-        studentViewHolder.studentPhone.setText(st.getPhone());
+        studentViewHolder.studentPhone.setText(st.getAuthor());
         studentViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,10 +47,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     @Override
     public int getItemCount() {
-        return studentArrayList.size();
+        return bookArrayList.size();
     }
-    public void setData(ArrayList<Student> StudentArrayList){
-        this.studentArrayList=StudentArrayList;
+    public void setData(ArrayList<Book> bookArrayList){
+        this.bookArrayList = bookArrayList;
         notifyDataSetChanged();
     }
 //to find views of single list xml file

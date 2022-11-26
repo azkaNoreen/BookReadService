@@ -4,12 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.ComponentName;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -19,7 +16,7 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recycleView;
-    ArrayList<Student> studentArrayList;
+    ArrayList<Book> bookArrayList;
     Button start,stop;
     String name;
     public static String ACTION_Launch_Activity = "Launch_Activity";
@@ -34,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         start=findViewById(R.id.start);
         stop=findViewById(R.id.stop);
 
-        studentArrayList= initStudentPrameterList();
+        bookArrayList = initStudentPrameterList();
         InitRecycleView();
 
         start.setOnClickListener(new View.OnClickListener() {
@@ -62,32 +59,30 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    private ArrayList<Student> initStudentPrameterList(){
-        ArrayList<Student> studentArrayList2=new ArrayList<>();
-        Student s1=new Student("Azka","0333-8976547");
-        Student s2=new Student("Azka","0372-8976447");
-        Student s3=new Student("Azka","0313-8966547");
-        Student s4=new Student("Azka","0336-8646547");
+    private ArrayList<Book> initStudentPrameterList(){
+        ArrayList<Book> bookArrayList2 =new ArrayList<>();
+        Book s1=new Book(1,"English","Azka","For learning english");
+        Book s2=new Book(2,"Urdu","Azka","For learning urdu");
+        Book s3=new Book(3,"Math","Azka","For learning mathematics");
+        Book s4=new Book(4,"Science","Azka","For learning sceince");
 
-        studentArrayList2.add(s1);
-        studentArrayList2.add(s2);
-        studentArrayList2.add(s3);
-        studentArrayList2.add(s4);
 
-        return studentArrayList2;
+        bookArrayList2.add(s1);
+        bookArrayList2.add(s2);
+        bookArrayList2.add(s3);
+        bookArrayList2.add(s4);
+
+        return bookArrayList2;
     }
 
     public void InitRecycleView(){
         RecyclerViewAdapter rva=new RecyclerViewAdapter();
         rva.setMyInterface(new MyInterface() {
             @Override
-            public void onStudentClick( Student student) {
-                name=student.getName();
-                Toast.makeText(MainActivity.this, student.getPhone(), Toast.LENGTH_SHORT).show();
-
+            public void onStudentClick( Book book) {
                 Intent intent = new Intent(getApplication(), MyService.class);
-                intent.setAction("getName");
-                intent.putExtra("sname", student.getPhone());
+                intent.setAction("updateNotification");
+                intent.putExtra("book", book);
                 getApplication().startService(intent);
             }
         });
@@ -96,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
 
         //recycleView.setLayoutManager(new GridLayoutManager(this,3));
 
-        rva.setData(studentArrayList);
+        rva.setData(bookArrayList);
 
     }
 }

@@ -18,7 +18,9 @@ public class MyService extends Service {
     public static String ACTION_Launch_Activity = "Launch_Activity";
     public static String ACTION_OPEN_DETAILS = "open_details";
 public int notificaitionid=122;
-    String namee;
+Boolean started=false;
+
+    Book book;
     public MyService() {
     }
     public static void launchSecondService(Context context) {
@@ -26,60 +28,48 @@ public int notificaitionid=122;
         intent.setAction(ACTION_Launch_Activity);
         context.startService(intent);
     }
-    public void passNmae(String name) {
-        namee=name;
-    }
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         if (intent.getAction() != null) {
             String action = intent.getAction();
             if (action.equals(ACTION_Launch_Activity)) {
-//                RecyclerViewAdapter rva=new RecyclerViewAdapter();
-//        rva.setMyInterface(new MyInterface() {
-//            @Override
-//            public void onStudentClick( Student student) {
-//                name=student.getName();
-////                Toast.makeText(MyService.this, student.getPhone(), Toast.LENGTH_SHORT).show();
-//            }
-//        });
+                started=true;
                 return launchNotification();
             }
-            else if(action.equals(ACTION_OPEN_DETAILS))
-               openDetails();
-            else if(action.equals("getName"))
+            if(started){
+            if(action.equals(ACTION_OPEN_DETAILS))
+            {
+                openDetails();
+            }
+            else if(action.equals("updateNotification"))
             {
                 NotificationManager mNotificationManager =
                         (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-                String value = intent.getStringExtra("sname");
-                openDetails2(value);
-                mNotificationManager.notify(notificaitionid,createNotification(value));
-
-            }
-
+                Book bookClicked = (Book) intent.getSerializableExtra("book");
+//                String value = intent.getStringExtra("sname");
+                mNotificationManager.notify(notificaitionid,createNotification(bookClicked));
+            }}
         }
+        else
+            return START_STICKY;
         return START_STICKY;
     }
-    private void openDetails2(String val) {
-        Intent intent = new Intent(MyService.this, Details.class);
-        intent.putExtra("sn",val);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
-
-        startActivity(intent);
-
-        Toast.makeText(this, "Stop CLicked", Toast.LENGTH_SHORT).show();
+    private void setBook(Book nm){
+        book=nm;
+    }
+    private Book getBook(){
+        return book;
     }
     private void openDetails() {
         Intent intent = new Intent(MyService.this, Details.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK );
-
+        intent.putExtra("bookDetails",getBook());
         startActivity(intent);
-
-        Toast.makeText(this, "Stop CLicked", Toast.LENGTH_SHORT).show();
     }
     private int launchNotification() {
         createNotificationChannel();
-        startForeground(notificaitionid, createNotification("this is  started"));
+        startForeground(notificaitionid, createNotification(new Book(0,"ded","this is  started","12")));
         return START_NOT_STICKY;
     }
 
@@ -90,20 +80,18 @@ public int notificaitionid=122;
 //        return mBinder;
         throw new UnsupportedOperationException("Not yet implemented");
     }
-    private android.app.Notification createNotification(String value) {
+    private android.app.Notification createNotification(Book book) {
         Intent intent = new Intent(MyService.this, MyService.class);
         //for not opening the activity again and again
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(MyService.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
         RemoteViews customNotification = new RemoteViews(getPackageName(), R.layout.customnotification);
-        customNotification.setTextViewText(R.id.play,value);
-        customNotification.setOnClickPendingIntent(R.id.play, getButtonPendingIntent(ACTION_OPEN_DETAILS));
+        customNotification.setTextViewText(R.id.play,book.getName()+book.getBookId());
+        customNotification.setOnClickPendingIntent(R.id.play, getButtonPendingIntent(ACTION_OPEN_DETAILS, book));
 //        customNotification.setOnClickPendingIntent(R.id.stop, getButtonPendingIntent(ACTION_Stop_Button));
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(MyService.this, "My_App")
                 .setSmallIcon(R.drawable.ic_android_black_24dp)
-                .setContentTitle("This is my Notification")
-                .setContentText(value)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
@@ -115,9 +103,10 @@ public int notificaitionid=122;
 
         return builder.build();// notification object
     }
-    private PendingIntent getButtonPendingIntent(String action) {
+    private PendingIntent getButtonPendingIntent(String action,Book book) {
         Intent intent = new Intent(this, MyService.class);
         intent.setAction(action);
+        setBook(book);
         return PendingIntent.getService(this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
     }
     private void createNotificationChannel() {

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TextView;
 
 public class Details extends AppCompatActivity {
@@ -13,8 +14,7 @@ TextView is;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
         is=findViewById(R.id.is);
-        Intent intent=getIntent();
-        is.setText(intent.getStringExtra("sn"));
-
+        Book book = (Book) getIntent().getSerializableExtra("bookDetails");
+        is.setText(book.getName());
     }
 }
