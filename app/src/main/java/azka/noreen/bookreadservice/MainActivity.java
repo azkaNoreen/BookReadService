@@ -62,9 +62,9 @@ public class MainActivity extends AppCompatActivity {
     private ArrayList<Book> initStudentPrameterList(){
         ArrayList<Book> bookArrayList2 =new ArrayList<>();
         Book s1=new Book(1,"English","Azka","For learning english");
-        Book s2=new Book(2,"Urdu","Azka","For learning urdu");
-        Book s3=new Book(3,"Math","Azka","For learning mathematics");
-        Book s4=new Book(4,"Science","Azka","For learning sceince");
+        Book s2=new Book(2,"Urdu","Samra","For learning urdu");
+        Book s3=new Book(3,"Math","Noor","For learning mathematics");
+        Book s4=new Book(4,"Science","Taaba","For learning sceince");
 
 
         bookArrayList2.add(s1);

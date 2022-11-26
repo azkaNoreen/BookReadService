@@ -6,9 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".Details">
     <TextView
-        android:id="@+id/is"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="this si sdeatsils"></TextView>
+        android:id="@+id/bn"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="15pt"
+        android:layout_marginRight="40dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        >
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bid"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="15pt"
+        android:layout_marginRight="40dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:layout_below="@+id/bn"
+        >
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ba"
+        android:layout_below="@+id/bid"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="15pt"
+        android:layout_marginRight="40dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        >
+    </TextView>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bd"
+        android:layout_below="@+id/ba"
+        android:layout_marginLeft="40dp"
+        android:layout_marginTop="15pt"
+        android:layout_marginRight="40dp"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        >
+    </TextView>
 
 </RelativeLayout>

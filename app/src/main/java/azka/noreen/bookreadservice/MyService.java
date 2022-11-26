@@ -69,7 +69,7 @@ Boolean started=false;
     }
     private int launchNotification() {
         createNotificationChannel();
-        startForeground(notificaitionid, createNotification(new Book(0,"ded","this is  started","12")));
+        startForeground(notificaitionid, createNotification(new Book(0,"Defualt","this is  started","12")));
         return START_NOT_STICKY;
     }
 
@@ -86,7 +86,7 @@ Boolean started=false;
 //                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         PendingIntent pendingIntent = PendingIntent.getActivity(MyService.this, 0, intent, PendingIntent.FLAG_IMMUTABLE);
         RemoteViews customNotification = new RemoteViews(getPackageName(), R.layout.customnotification);
-        customNotification.setTextViewText(R.id.play,book.getName()+book.getBookId());
+        customNotification.setTextViewText(R.id.play,"Book Name:"+book.getName()+"Book ID:"+book.getBookId());
         customNotification.setOnClickPendingIntent(R.id.play, getButtonPendingIntent(ACTION_OPEN_DETAILS, book));
 //        customNotification.setOnClickPendingIntent(R.id.stop, getButtonPendingIntent(ACTION_Stop_Button));
 

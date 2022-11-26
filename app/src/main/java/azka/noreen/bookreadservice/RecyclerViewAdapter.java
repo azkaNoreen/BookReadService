@@ -34,8 +34,10 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
         Book st= bookArrayList.get(position);
         StudentViewHolder studentViewHolder= (StudentViewHolder) holder;
 
-        studentViewHolder.studentTextName.setText(st.getName());
-        studentViewHolder.studentPhone.setText(st.getAuthor());
+        studentViewHolder.bookName.setText(st.getName());
+        studentViewHolder.bookAuthor.setText(st.getAuthor());
+        studentViewHolder.BookDescription.setText(st.getDescription());
+
         studentViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,14 +58,13 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 //to find views of single list xml file
     public static class StudentViewHolder extends RecyclerView.ViewHolder{
 
-        TextView studentTextName;
-        TextView studentPhone;
+        TextView bookName,bookAuthor,BookDescription;
         public StudentViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            studentTextName=itemView.findViewById(R.id.studentName);
-            studentPhone=itemView.findViewById(R.id.phone);
-
+            bookName=itemView.findViewById(R.id.name);
+            bookAuthor=itemView.findViewById(R.id.message);
+            BookDescription=itemView.findViewById(R.id.time);
         }
     }
 
